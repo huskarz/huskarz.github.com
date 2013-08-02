@@ -4,13 +4,42 @@
  <title>Huskar Blog</title>
  <link href="http://blog.example.com/atom.xml" rel="self"/>
  <link href="http://blog.example.com/"/>
- <updated>2013-08-02T16:01:25+08:00</updated>
+ <updated>2013-08-02T17:28:48+08:00</updated>
  <id>http://blog.example.com/</id>
  <author>
    <name>Huskar</name>
    <email>Huskar@outlook.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Ruby环境的若干问题!!</title>
+   <link href="http://blog.example.com/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html"/>
+   <updated>2013-08-03T00:38:03+08:00</updated>
+   <id>http://blog.example.com/jekyll/update/2013/08/03/Ruby环境若干问题</id>
+   <content type="html">&lt;p&gt;本来不需要ruby环境的。为了安装cocoapods，结果引出一堆安装问题。焦头烂额了两天，现在终于搞定了。&lt;/p&gt;
+
+&lt;h1 id='download_specs48gz'&gt;不能download specs.4.8.gz&lt;/h1&gt;
+
+&lt;p&gt;这个问题很坑爹，本来按照安装cocoapods的流程： &lt;pre&gt;
+  &lt;code&gt;
+    gem update --system
+    sudo gem install cocoapods
+  &lt;/code&gt;
+&lt;/pre&gt; 结果发现被墙，于是修改源： &lt;a href='http://ruby.taobao.org'&gt;taobao镜像&lt;/a&gt; 但还是死活装不上，后来用 &lt;pre&gt;&lt;code&gt;
+    gem install cocoapods -V
+&lt;/code&gt;&lt;/pre&gt; 才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是修改文件夹权限，cocoapods顺利装上。&lt;/p&gt;
+
+&lt;h1 id='jekyll'&gt;安装jekyll的问题&lt;/h1&gt;
+
+&lt;p&gt;正常来说： &lt;pre&gt;&lt;code&gt;
+    $ gem install jekyll
+&lt;/code&gt;&lt;/pre&gt; 然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2 &lt;pre&gt;&lt;code&gt;
+    $ rvm install 1.9.2
+&lt;/code&gt;&lt;/pre&gt; 报错说macports有问题（当时心中千万匹草泥马） 按照此贴操作无果（应该有用，只是没有解决我的问题） &lt;a href='http://www.cnblogs.com/8586/archive/2012/12/02/2797911.html'&gt;解决安装macports，不能更新的问题&lt;/a&gt; 我想这个只是解决单独安装macports的问题，因为使用sync绕过了resync带来的问题。 于是我像RVM是不是有神马设置可以绕开安装Macports时默认使用resync，果不其然让我找着了： &lt;a href='https://rvm.io/integration/macports'&gt;使用autolibs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;期间还遇到了各种乱七八糟，形形色色的小问题，但记不太清了。先这样吧。&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>Horray!!</title>
