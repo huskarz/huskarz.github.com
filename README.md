@@ -1,2 +1,2 @@
-huskarz.github.com
+hey, it's just a blog.
 ==================
