@@ -4,13 +4,102 @@
  <title>Huskar Blog</title>
  <link href="http://blog.example.com/atom.xml" rel="self"/>
  <link href="http://blog.example.com/"/>
- <updated>2013-08-09T15:58:35+08:00</updated>
+ <updated>2013-08-09T17:23:18+08:00</updated>
  <id>http://blog.example.com/</id>
  <author>
    <name>Huskar</name>
    <email>Huskar@outlook.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Beeframwork入门-scaffold</title>
+   <link href="http://blog.example.com/beeframework/tutorial/2013/08/10/Beeframwork%E5%85%A5%E9%97%A8-scaffold.html"/>
+   <updated>2013-08-10T00:07:03+08:00</updated>
+   <id>http://blog.example.com/beeframework/tutorial/2013/08/10/Beeframwork入门-scaffold</id>
+   <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
+
+&lt;p&gt;IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下: &lt;pre&gt;
+&lt;code&gt;
+{
+	data =
+    (
+        {
+           filename = &quot;name1&quot;;
+           content = &quot;content1&quot;;
+        },
+        {
+		   filename = &quot;name2&quot;;
+		   content = &quot;content2&quot;;
+		 }
+	);
+	returncode = 400;
+}
+&lt;/code&gt;
+&lt;/pre&gt;&lt;/p&gt;
+
+&lt;h1 id='scaffold'&gt;Scaffold&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;首先绝大部分的IOS APP都是通过与server交互获取动态数据,所以你需要写大量的代码(Model&amp;amp;Controller)用于处理server获取的数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Scaffold能自动生成配套的Model和Controller.让你从此解放而专注于view的设计。以后若server返回的数据有变，只需要修改配置文件，从新生成一遍就可以了。&lt;/p&gt;
+
+&lt;h1 id='steps'&gt;Steps&lt;/h1&gt;
+
+&lt;h2 id='1_edit_xxxxjson'&gt;1. edit xxxx.json&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;根据server返回的json格式,对应的xxxx.json如下(具体规则参考&lt;strong&gt;scaffold.md&lt;/strong&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;
+&lt;code&gt;
+{
+    &quot;title&quot; : &quot;xxxxxx&quot;,
+    &quot;author&quot;: &quot;whatever&quot;,
+
+    &quot;server&quot; : 
+    {
+        &quot;development&quot; : &quot;/*取数据的server address*/&quot;
+    },
+
+    &quot;model&quot; :
+    {
+        &quot;FILE&quot; :
+        {
+		            &quot;filename&quot; : &quot;name1&quot;,
+		            &quot;content&quot; : &quot;content1&quot;,
+		    }
+    },
+    &quot;controller&quot; :
+    {
+        &quot;GET /getFiles.action&quot;:
+        {
+            &quot;request&quot; :
+            {
+                &quot;fileCategory&quot; : 111 
+            },
+            &quot;response&quot;: //server 返回json数据格式
+            {
+		            &quot;data&quot;:[&quot;{FILE}&quot;],//上面定义的model &quot;FILE&quot;
+                &quot;returncode&quot;:&quot;400&quot;
+            }
+        }
+     }
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;h2 id='2_run_scaffold_xxxxjson'&gt;2. run &amp;#8220;scaffold xxxx.json&amp;#8221;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;运行后可以得到 xxxx.h 和 xxxx.mm，将他们加到工程中。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;至此,使用scaffold生成配套的controller和model,与server端获取数据并转换为model的代码已经完成。&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+ </entry>
  
  <entry>
    <title>Ruby环境的若干问题!!</title>
