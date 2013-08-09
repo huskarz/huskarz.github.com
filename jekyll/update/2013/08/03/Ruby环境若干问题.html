@@ -23,26 +23,46 @@
 <div class="post">
 <p>本来不需要ruby环境的。为了安装cocoapods，结果引出一堆安装问题。焦头烂额了两天，现在终于搞定了。</p>
 
-<h1 id='download_specs48gz'>不能download specs.4.8.gz</h1>
+<h2 id='download_specs48gz'>不能download specs.4.8.gz</h2>
 
 <p>这个问题很坑爹，本来按照安装cocoapods的流程： <pre>
   <code>
     gem update --system
     sudo gem install cocoapods
   </code>
-</pre> 结果发现被墙，于是修改源： <a href='http://ruby.taobao.org'>taobao镜像</a> 但还是死活装不上，后来用 <pre><code>
+</pre> 结果发现被墙，于是修改源： <a href='http://ruby.taobao.org'>taobao镜像</a> 但还是死活装不上，后来用 <pre>
+<code>
     gem install cocoapods -V
-</code></pre> 才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是修改文件夹权限，cocoapods顺利装上。</p>
+</code>
+</pre> 才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是<strong>修改文件夹权限</strong>，cocoapods顺利装上。</p>
 
-<h1 id='jekyll'>安装jekyll的问题</h1>
+<h2 id='jekyll'>安装jekyll的问题</h2>
 
-<p>正常来说： <pre><code>
+<p>正常来说： <pre>
+<code>
     $ gem install jekyll
-</code></pre> 然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2 <pre><code>
+</code>
+</pre> 然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2 <pre>
+<code>
     $ rvm install 1.9.2
-</code></pre> 报错说macports有问题（当时心中千万匹草泥马） 按照此贴操作无果（应该有用，只是没有解决我的问题） <a href='http://www.cnblogs.com/8586/archive/2012/12/02/2797911.html'>解决安装macports，不能更新的问题</a> 我想这个只是解决单独安装macports的问题，因为使用sync绕过了resync带来的问题。 于是我像RVM是不是有神马设置可以绕开安装Macports时默认使用resync，果不其然让我找着了： <a href='https://rvm.io/integration/macports'>使用autolibs</a></p>
+</code>
+</pre></p>
 
+<blockquote>
+<p>报错说macports有问题（当时心中千万匹草泥马） 按照此贴操作无果（应该有用，只是没有解决我的问题）</p>
+</blockquote>
+<a href='http://www.cnblogs.com/8586/archive/2012/12/02/2797911.html'>解决安装macports，不能更新的问题</a>
+<blockquote>
+<p>我想这个只是解决单独安装macports的问题，因为使用sync绕过了resync带来的问题。 于是我像RVM是不是有神马设置可以绕开安装Macports时默认使用resync，果不其然让我找着了：</p>
+</blockquote>
+<a href='https://rvm.io/integration/macports'>使用autolibs</a>
+<blockquote>
+<p>至此，一切都搞定。</p>
+</blockquote>
+
+<blockquote>
 <p>期间还遇到了各种乱七八糟，形形色色的小问题，但记不太清了。先这样吧。</p>
+</blockquote>
 </div>
 
 <div id="related">
