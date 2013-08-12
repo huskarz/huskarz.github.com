@@ -4,13 +4,113 @@
  <title>Huskar Blog</title>
  <link href="http://blog.example.com/atom.xml" rel="self"/>
  <link href="http://blog.example.com/"/>
- <updated>2013-08-09T17:31:00+08:00</updated>
+ <updated>2013-08-12T16:08:38+08:00</updated>
  <id>http://blog.example.com/</id>
  <author>
    <name>Huskar</name>
    <email>Huskar@outlook.com</email>
  </author>
 
+ 
+ <entry>
+   <title>BeeFramework入门-scaffold-II</title>
+   <link href="http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html"/>
+   <updated>2013-08-10T01:36:03+08:00</updated>
+   <id>http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework入门-scaffold-II</id>
+   <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
+
+&lt;p&gt;书接上回&lt;a href='http://huskarz.github.io/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html'&gt;使用scaffold生成model&amp;amp;controller&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;从server端返回一个file list 我们需要在一个scrollview里列出取得的书名。&lt;/p&gt;
+
+&lt;h1 id='scaffold'&gt;scaffold生成了些什么？&lt;/h1&gt;
+
+&lt;h2 id='1file'&gt;1.FILE&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface FILE : BeeActiveObject
+@property (nonatomic, retain) NSString *		content;
+@property (nonatomic, retain) NSString *		filename;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;数据会存在FILE里面。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id='2req_getfiles_action'&gt;2.REQ_GETFILES_ACTION&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface REQ_GETFILES_ACTION : BeeActiveObject
+@property (nonatomic, retain) NSNumber *		fileCategory;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;向server发的请求，这里只有一个参数&amp;#8217;fileCategory&amp;#8217;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id='3resp_getfiles_action'&gt;3.RESP_GETFILES_ACTION&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface RESP_GETFILES_ACTION : BeeActiveObject
+@property (nonatomic, retain) NSArray *		data;
+@property (nonatomic, retain) NSString *		returncode;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;server的response。data里面存储的数据最终会通过宏CONVERT_PROPERTY_CLASS( data, FILE )转换为一个list，其中的element是FILE。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id='4api_getfiles_action'&gt;4.API_GETFILES_ACTION&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface API_GETFILES_ACTION : BeeRoutine
+@property (nonatomic, retain) REQ_GETFILES_ACTION *	req;
+@property (nonatomic, retain) RESP_GETFILES_ACTION *	resp;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;发送请求以及处理响应的BeeRoutine.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id='data_flow'&gt;Data flow&lt;/h1&gt;
+
+&lt;h2 id='1_send_request'&gt;1. Send request&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;BeeRoutine已经封装了这些操作。既然API_GETFILES_ACTION继承自它，只需:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;API_GETFILES_ACTION * api = [API_GETFILES_ACTION apiWithResponder:self];
+api.req.fileCategory = @111;//set request parameters
+[api send];&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;指定responder为self，需自定义&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)API_GETFILES_ACTION:(API_GETFILES_ACTION *)api&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;作为所有的action包括发送请求，请求结果的callback。 在API_GETFILES_ACTION::routine中,会调用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;NSString * requestURI = @&amp;quot;http://www.163.com/getFiles.action&amp;quot;;
+self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;完成request的发送。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id='2_process_response'&gt;2. Process response&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;同样在API_GETFILES_ACTION::routine中&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;self.resp = [RESP_GETFILES_ACTION objectFromDictionary:(NSDictionary *)result];&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;在json文件中已经定义好了返回的格式，这里会直接转换为response。然后只需在自定义的responder里面提取出来&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;[self.files addObjectsFromArray:api.resp.data];&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;至此，从server取到数据并转换为内部model list.&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+ </entry>
  
  <entry>
    <title>BeeFramework入门-scaffold</title>
