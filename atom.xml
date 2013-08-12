@@ -4,7 +4,7 @@
  <title>Huskar Blog</title>
  <link href="http://blog.example.com/atom.xml" rel="self"/>
  <link href="http://blog.example.com/"/>
- <updated>2013-08-12T16:08:38+08:00</updated>
+ <updated>2013-08-12T16:16:30+08:00</updated>
  <id>http://blog.example.com/</id>
  <author>
    <name>Huskar</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>BeeFramework入门-scaffold-II</title>
-   <link href="http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html"/>
-   <updated>2013-08-10T01:36:03+08:00</updated>
-   <id>http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework入门-scaffold-II</id>
+   <link href="http://blog.example.com/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html"/>
+   <updated>2013-08-13T01:36:03+08:00</updated>
+   <id>http://blog.example.com/beeframework/tutorial/2013/08/13/BeeFramework入门-scaffold-II</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
 &lt;p&gt;书接上回&lt;a href='http://huskarz.github.io/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html'&gt;使用scaffold生成model&amp;amp;controller&lt;/a&gt;.&lt;/p&gt;
