@@ -4,11 +4,25 @@
   <!--  Homepage -->
   <url>
     <loc>http://blog.example.com/</loc>
-    <lastmod>2013-08-12</lastmod>
+    <lastmod>2013-08-19</lastmod>
     <changefreq>daily</changefreq>
 		<priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>http://blog.example.com/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html</loc>
+    
+    <lastmod>2013-08-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.example.com/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html</loc>
+    
+    <lastmod>2013-08-13</lastmod>
+    
+  </url>
   
   <url>
     <loc>http://blog.example.com/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html</loc>
@@ -31,19 +45,12 @@
     
   </url>
   
-  <url>
-    <loc>http://blog.example.com/jekyll/update/2013/08/02/welcome-to-jekyll.html</loc>
-    
-    <lastmod>2013-08-02</lastmod>
-    
-  </url>
-  
 
   
   <url>
     <loc>http://blog.example.com/about.html</loc>
     
-    <lastmod>2013-08-12</lastmod>
+    <lastmod>2013-08-19</lastmod>
     
     
     
@@ -52,7 +59,7 @@
   <url>
     <loc>http://blog.example.com/index.html</loc>
     
-    <lastmod>2013-08-12</lastmod>
+    <lastmod>2013-08-19</lastmod>
     
     
     

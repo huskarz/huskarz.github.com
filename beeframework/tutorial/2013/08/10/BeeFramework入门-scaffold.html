@@ -23,25 +23,22 @@
 <div class="post">
 <h1 id='background'>Background</h1>
 
-<p>IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下: <pre>
-<code>
-{
-	data =
-    (
-        {
-           filename = "name1";
-           content = "content1";
-        },
-        {
-		   filename = "name2";
-		   content = "content2";
-		 }
-	);
-	returncode = 400;
-}
-</code>
-</pre></p>
-
+<p>IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下:</p>
+<div class='highlight'><pre><code class='json'><span class='lineno'> 1</span> 	<span class='p'>{</span>
+<span class='lineno'> 2</span> 		<span class='err'>data</span> <span class='err'>=</span>
+<span class='lineno'> 3</span> 	    <span class='err'>(</span>
+<span class='lineno'> 4</span> 			<span class='err'>{</span>
+<span class='lineno'> 5</span> 				<span class='err'>filename</span> <span class='err'>=</span> <span class='nt'>&quot;name1&quot;</span><span class='err'>;</span>
+<span class='lineno'> 6</span> 				<span class='err'>content</span> <span class='err'>=</span> <span class='s2'>&quot;content1&quot;</span><span class='err'>;</span>
+<span class='lineno'> 7</span> 	        <span class='p'>}</span><span class='err'>,</span>
+<span class='lineno'> 8</span> 	        <span class='p'>{</span>
+<span class='lineno'> 9</span> 				<span class='err'>filename</span> <span class='err'>=</span> <span class='nt'>&quot;name2&quot;</span><span class='err'>;</span>
+<span class='lineno'>10</span> 				<span class='err'>content</span> <span class='err'>=</span> <span class='s2'>&quot;content2&quot;</span><span class='err'>;</span>
+<span class='lineno'>11</span> 			<span class='p'>}</span>
+<span class='lineno'>12</span> 		<span class='err'>);</span>
+<span class='lineno'>13</span> 		<span class='err'>returncode</span> <span class='err'>=</span> <span class='mi'>400</span><span class='err'>;</span>
+<span class='lineno'>14</span> 	<span class='err'>}</span>
+</code></pre></div>
 <h1 id='scaffold'>Scaffold</h1>
 
 <blockquote>
@@ -57,43 +54,40 @@
 <blockquote>
 <p>根据server返回的json格式,对应的xxxx.json如下(具体规则参考<strong>scaffold.md</strong>)</p>
 </blockquote>
-<pre>
-<code>
-{
-    "title" : "xxxxxx",
-    "author": "whatever",
-
-    "server" : 
-    {
-        "development" : "/*取数据的server address*/"
-    },
-
-    "model" :
-    {
-        "FILE" :
-        {
-		            "filename" : "name1",
-		            "content" : "content1",
-		    }
-    },
-    "controller" :
-    {
-        "GET /getFiles.action":
-        {
-            "request" :
-            {
-                "fileCategory" : 111 
-            },
-            "response": //server 返回json数据格式
-            {
-		            "data":["{FILE}"],//上面定义的model "FILE"
-                "returncode":"400"
-            }
-        }
-     }
-}
-</code>
-</pre>
+<div class='highlight'><pre><code class='json'><span class='lineno'> 1</span> 	<span class='p'>{</span>
+<span class='lineno'> 2</span> 	    <span class='nt'>&quot;title&quot;</span> <span class='p'>:</span> <span class='s2'>&quot;xxxxxx&quot;</span><span class='p'>,</span>
+<span class='lineno'> 3</span> 	    <span class='nt'>&quot;author&quot;</span><span class='p'>:</span> <span class='s2'>&quot;whatever&quot;</span><span class='p'>,</span>
+<span class='lineno'> 4</span> 	
+<span class='lineno'> 5</span> 	    <span class='nt'>&quot;server&quot;</span> <span class='p'>:</span> 
+<span class='lineno'> 6</span> 	    <span class='p'>{</span>
+<span class='lineno'> 7</span> 	        <span class='nt'>&quot;development&quot;</span> <span class='p'>:</span> <span class='s2'>&quot;/*取数据的server address*/&quot;</span>
+<span class='lineno'> 8</span> 	    <span class='p'>},</span>
+<span class='lineno'> 9</span> 	
+<span class='lineno'>10</span> 	    <span class='nt'>&quot;model&quot;</span> <span class='p'>:</span>
+<span class='lineno'>11</span> 	    <span class='p'>{</span>
+<span class='lineno'>12</span> 	        <span class='nt'>&quot;FILE&quot;</span> <span class='p'>:</span>
+<span class='lineno'>13</span> 	        <span class='p'>{</span>
+<span class='lineno'>14</span> 			            <span class='nt'>&quot;filename&quot;</span> <span class='p'>:</span> <span class='s2'>&quot;name1&quot;</span><span class='p'>,</span>
+<span class='lineno'>15</span> 			            <span class='nt'>&quot;content&quot;</span> <span class='p'>:</span> <span class='s2'>&quot;content1&quot;</span><span class='p'>,</span>
+<span class='lineno'>16</span> 			    <span class='p'>}</span>
+<span class='lineno'>17</span> 	    <span class='p'>},</span>
+<span class='lineno'>18</span> 	    <span class='nt'>&quot;controller&quot;</span> <span class='p'>:</span>
+<span class='lineno'>19</span> 	    <span class='p'>{</span>
+<span class='lineno'>20</span> 	        <span class='nt'>&quot;GET /getFiles.action&quot;</span><span class='p'>:</span>
+<span class='lineno'>21</span> 	        <span class='p'>{</span>
+<span class='lineno'>22</span> 	            <span class='nt'>&quot;request&quot;</span> <span class='p'>:</span>
+<span class='lineno'>23</span> 	            <span class='p'>{</span>
+<span class='lineno'>24</span> 	                <span class='nt'>&quot;fileCategory&quot;</span> <span class='p'>:</span> <span class='mi'>111</span> 
+<span class='lineno'>25</span> 	            <span class='p'>},</span>
+<span class='lineno'>26</span> 	            <span class='nt'>&quot;response&quot;</span><span class='p'>:</span> <span class='err'>/*server</span> <span class='err'>返回json数据格式*/</span>
+<span class='lineno'>27</span> 	            <span class='p'>{</span>
+<span class='lineno'>28</span> 			            <span class='nt'>&quot;data&quot;</span><span class='p'>:[</span><span class='s2'>&quot;{FILE}&quot;</span><span class='p'>],</span><span class='err'>/*上面定义的model</span> <span class='nt'>&quot;FILE&quot;</span><span class='err'>*/</span>
+<span class='lineno'>29</span> 	                <span class='s2'>&quot;returncode&quot;</span><span class='p'>:</span><span class='s2'>&quot;400&quot;</span>
+<span class='lineno'>30</span> 	            <span class='p'>}</span>
+<span class='lineno'>31</span> 	        <span class='p'>}</span>
+<span class='lineno'>32</span> 	     <span class='p'>}</span>
+<span class='lineno'>33</span> 	<span class='p'>}</span>
+</code></pre></div>
 <h2 id='2_run_scaffold_xxxxjson'>2. run &#8220;scaffold xxxx.json&#8221;</h2>
 
 <blockquote>
@@ -109,11 +103,13 @@
   <h2>Related Posts</h2>
   <ul class="posts">
     
+      <li><span>19 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html">BeeFramework入门-BeeUIScrollView</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html">CorePlot基础</a></li>
+    
       <li><span>13 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html">BeeFramework入门-scaffold-II</a></li>
     
       <li><span>03 Aug 2013</span> - <a href="/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html">Ruby环境的若干问题!!</a></li>
-    
-      <li><span>02 Aug 2013</span> - <a href="/jekyll/update/2013/08/02/welcome-to-jekyll.html">Horray!!</a></li>
     
   </ul>
 </div>

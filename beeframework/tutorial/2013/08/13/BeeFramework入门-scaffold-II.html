@@ -31,9 +31,10 @@
 
 <h2 id='1file'>1.FILE</h2>
 
-<pre><code>@interface FILE : BeeActiveObject
-@property (nonatomic, retain) NSString *		content;
-@property (nonatomic, retain) NSString *		filename;</code></pre>
+<p><div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='k'>@interface</span> <span class='nc'>FILE</span> : <span class='nc'>BeeActiveObject</span>
+<span class='lineno'>2</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>NSString</span> <span class='o'>*</span>		<span class='n'>content</span><span class='p'>;</span>
+<span class='lineno'>3</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>NSString</span> <span class='o'>*</span>		<span class='n'>filename</span><span class='p'>;</span>
+</code></pre></div></p>
 
 <blockquote>
 <p>数据会存在FILE里面。</p>
@@ -41,8 +42,9 @@
 
 <h2 id='2req_getfiles_action'>2.REQ_GETFILES_ACTION</h2>
 
-<pre><code>@interface REQ_GETFILES_ACTION : BeeActiveObject
-@property (nonatomic, retain) NSNumber *		fileCategory;</code></pre>
+<p><div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='k'>@interface</span> <span class='nc'>REQ_GETFILES_ACTION</span> : <span class='nc'>BeeActiveObject</span>
+<span class='lineno'>2</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>NSNumber</span> <span class='o'>*</span>		<span class='n'>fileCategory</span><span class='p'>;</span>
+</code></pre></div></p>
 
 <blockquote>
 <p>向server发的请求，这里只有一个参数&#8217;fileCategory&#8217;.</p>
@@ -50,9 +52,10 @@
 
 <h2 id='3resp_getfiles_action'>3.RESP_GETFILES_ACTION</h2>
 
-<pre><code>@interface RESP_GETFILES_ACTION : BeeActiveObject
-@property (nonatomic, retain) NSArray *		data;
-@property (nonatomic, retain) NSString *		returncode;</code></pre>
+<p><div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='k'>@interface</span> <span class='nc'>RESP_GETFILES_ACTION</span> : <span class='nc'>BeeActiveObject</span>
+<span class='lineno'>2</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>NSArray</span> <span class='o'>*</span>		<span class='n'>data</span><span class='p'>;</span>
+<span class='lineno'>3</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>NSString</span> <span class='o'>*</span>		<span class='n'>returncode</span><span class='p'>;</span>
+</code></pre></div></p>
 
 <blockquote>
 <p>server的response。data里面存储的数据最终会通过宏CONVERT_PROPERTY_CLASS( data, FILE )转换为一个list，其中的element是FILE。</p>
@@ -60,9 +63,10 @@
 
 <h2 id='4api_getfiles_action'>4.API_GETFILES_ACTION</h2>
 
-<pre><code>@interface API_GETFILES_ACTION : BeeRoutine
-@property (nonatomic, retain) REQ_GETFILES_ACTION *	req;
-@property (nonatomic, retain) RESP_GETFILES_ACTION *	resp;</code></pre>
+<p><div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='k'>@interface</span> <span class='nc'>API_GETFILES_ACTION</span> : <span class='nc'>BeeRoutine</span>
+<span class='lineno'>2</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>REQ_GETFILES_ACTION</span> <span class='o'>*</span>	<span class='n'>req</span><span class='p'>;</span>
+<span class='lineno'>3</span> 	<span class='k'>@property</span> <span class='p'>(</span><span class='n'>nonatomic</span><span class='p'>,</span> <span class='n'>retain</span><span class='p'>)</span> <span class='n'>RESP_GETFILES_ACTION</span> <span class='o'>*</span>	<span class='n'>resp</span><span class='p'>;</span>
+</code></pre></div></p>
 
 <blockquote>
 <p>发送请求以及处理响应的BeeRoutine.</p>
@@ -75,24 +79,21 @@
 <blockquote>
 <p>BeeRoutine已经封装了这些操作。既然API_GETFILES_ACTION继承自它，只需:</p>
 </blockquote>
-
-<pre><code>API_GETFILES_ACTION * api = [API_GETFILES_ACTION apiWithResponder:self];
-api.req.fileCategory = @111;//set request parameters
-[api send];</code></pre>
-
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>API_GETFILES_ACTION</span> <span class='o'>*</span> <span class='n'>api</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>API_GETFILES_ACTION</span> <span class='n'>apiWithResponder</span><span class='o'>:</span><span class='n'>self</span><span class='p'>];</span>
+<span class='lineno'>2</span> 	<span class='n'>api</span><span class='p'>.</span><span class='n'>req</span><span class='p'>.</span><span class='n'>fileCategory</span> <span class='o'>=</span> <span class='mi'>@111</span><span class='p'>;</span><span class='c1'>//set request parameters</span>
+<span class='lineno'>3</span> 	<span class='p'>[</span><span class='n'>api</span> <span class='n'>send</span><span class='p'>];</span>
+</code></pre></div>
 <blockquote>
 <p>指定responder为self，需自定义</p>
 </blockquote>
-
-<pre><code>- (void)API_GETFILES_ACTION:(API_GETFILES_ACTION *)api</code></pre>
-
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='o'>-</span> <span class='p'>(</span><span class='kt'>void</span><span class='p'>)</span><span class='n'>API_GETFILES_ACTION</span><span class='o'>:</span><span class='p'>(</span><span class='n'>API_GETFILES_ACTION</span> <span class='o'>*</span><span class='p'>)</span><span class='n'>api</span>
+</code></pre></div>
 <blockquote>
 <p>作为所有的action包括发送请求，请求结果的callback。 在API_GETFILES_ACTION::routine中,会调用</p>
 </blockquote>
-
-<pre><code>NSString * requestURI = @&quot;http://www.163.com/getFiles.action&quot;;
-self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );</code></pre>
-
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>NSString</span> <span class='o'>*</span> <span class='n'>requestURI</span> <span class='o'>=</span> <span class='s'>@&quot;http://www.163.com/getFiles.action&quot;</span><span class='p'>;</span>
+<span class='lineno'>2</span> 	<span class='n'>self</span><span class='p'>.</span><span class='n'>HTTP_GET</span><span class='p'>(</span> <span class='n'>requestURI</span> <span class='p'>).</span><span class='n'>PARAM</span><span class='p'>(</span> <span class='p'>[</span><span class='n'>self</span><span class='p'>.</span><span class='n'>req</span> <span class='n'>objectToDictionary</span><span class='p'>]</span> <span class='p'>);</span>
+</code></pre></div>
 <blockquote>
 <p>完成request的发送。</p>
 </blockquote>
@@ -102,15 +103,13 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );</code></pre>
 <blockquote>
 <p>同样在API_GETFILES_ACTION::routine中</p>
 </blockquote>
-
-<pre><code>self.resp = [RESP_GETFILES_ACTION objectFromDictionary:(NSDictionary *)result];</code></pre>
-
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>self</span><span class='p'>.</span><span class='n'>resp</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>RESP_GETFILES_ACTION</span> <span class='n'>objectFromDictionary</span><span class='o'>:</span><span class='p'>(</span><span class='n'>NSDictionary</span> <span class='o'>*</span><span class='p'>)</span><span class='n'>result</span><span class='p'>];</span>
+</code></pre></div>
 <blockquote>
 <p>在json文件中已经定义好了返回的格式，这里会直接转换为response。然后只需在自定义的responder里面提取出来</p>
 </blockquote>
-
-<pre><code>[self.files addObjectsFromArray:api.resp.data];</code></pre>
-
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='p'>[</span><span class='n'>self</span><span class='p'>.</span><span class='n'>files</span> <span class='n'>addObjectsFromArray</span><span class='o'>:</span><span class='n'>api</span><span class='p'>.</span><span class='n'>resp</span><span class='p'>.</span><span class='n'>data</span><span class='p'>];</span>
+</code></pre></div>
 <blockquote>
 <p>至此，从server取到数据并转换为内部model list.</p>
 </blockquote>
@@ -120,11 +119,13 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );</code></pre>
   <h2>Related Posts</h2>
   <ul class="posts">
     
+      <li><span>19 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html">BeeFramework入门-BeeUIScrollView</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html">CorePlot基础</a></li>
+    
       <li><span>10 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html">BeeFramework入门-scaffold</a></li>
     
       <li><span>03 Aug 2013</span> - <a href="/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html">Ruby环境的若干问题!!</a></li>
-    
-      <li><span>02 Aug 2013</span> - <a href="/jekyll/update/2013/08/02/welcome-to-jekyll.html">Horray!!</a></li>
     
   </ul>
 </div>

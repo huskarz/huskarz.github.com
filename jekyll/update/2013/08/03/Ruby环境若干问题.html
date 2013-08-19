@@ -25,29 +25,23 @@
 
 <h2 id='download_specs48gz'>不能download specs.4.8.gz</h2>
 
-<p>这个问题很坑爹，本来按照安装cocoapods的流程： <pre>
-  <code>
-    gem update --system
-    sudo gem install cocoapods
-  </code>
-</pre> 结果发现被墙，于是修改源： <a href='http://ruby.taobao.org'>taobao镜像</a> 但还是死活装不上，后来用 <pre>
-<code>
-    gem install cocoapods -V
-</code>
-</pre> 才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是<strong>修改文件夹权限</strong>，cocoapods顺利装上。</p>
+<p>这个问题很坑爹，本来按照安装cocoapods的流程：</p>
+<div class='highlight'><pre><code class='sh'><span class='lineno'>1</span>     gem update --system
+<span class='lineno'>2</span>     sudo gem install cocoapods
+</code></pre></div>
+<p>结果发现被墙，于是修改源： <a href='http://ruby.taobao.org'>taobao镜像</a> 但还是死活装不上，后来用</p>
+<div class='highlight'><pre><code class='sh'><span class='lineno'>1</span>     gem install cocoapods -V
+</code></pre></div>
+<p>才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是<strong>修改文件夹权限</strong>，cocoapods顺利装上。</p>
 
 <h2 id='jekyll'>安装jekyll的问题</h2>
 
-<p>正常来说： <pre>
-<code>
-    $ gem install jekyll
-</code>
-</pre> 然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2 <pre>
-<code>
-    $ rvm install 1.9.2
-</code>
-</pre></p>
-
+<p>正常来说：</p>
+<div class='highlight'><pre><code class='sh'><span class='lineno'>1</span>     <span class='nv'>$ </span>gem install jekyll
+</code></pre></div>
+<p>然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2</p>
+<div class='highlight'><pre><code class='sh'><span class='lineno'>1</span>     <span class='nv'>$ </span>rvm install 1.9.2
+</code></pre></div>
 <blockquote>
 <p>报错说macports有问题（当时心中千万匹草泥马） 按照此贴操作无果（应该有用，只是没有解决我的问题）</p>
 </blockquote>
@@ -69,11 +63,13 @@
   <h2>Related Posts</h2>
   <ul class="posts">
     
+      <li><span>19 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html">BeeFramework入门-BeeUIScrollView</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html">CorePlot基础</a></li>
+    
       <li><span>13 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html">BeeFramework入门-scaffold-II</a></li>
     
       <li><span>10 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html">BeeFramework入门-scaffold</a></li>
-    
-      <li><span>02 Aug 2013</span> - <a href="/jekyll/update/2013/08/02/welcome-to-jekyll.html">Horray!!</a></li>
     
   </ul>
 </div>

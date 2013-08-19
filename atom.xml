@@ -4,13 +4,266 @@
  <title>Huskar Blog</title>
  <link href="http://blog.example.com/atom.xml" rel="self"/>
  <link href="http://blog.example.com/"/>
- <updated>2013-08-12T16:16:30+08:00</updated>
+ <updated>2013-08-19T15:13:21+08:00</updated>
  <id>http://blog.example.com/</id>
  <author>
    <name>Huskar</name>
    <email>Huskar@outlook.com</email>
  </author>
 
+ 
+ <entry>
+   <title>BeeFramework入门-BeeUIScrollView</title>
+   <link href="http://blog.example.com/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html"/>
+   <updated>2013-08-19T10:35:00+08:00</updated>
+   <id>http://blog.example.com/beeframework/tutorial/2013/08/19/BeeFramework入门-BeeUIScrollView</id>
+   <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
+
+&lt;p&gt;简单的用一个scroll view显示一个书名列表。&lt;/p&gt;
+
+&lt;h1 id='define_cell'&gt;Define cell&lt;/h1&gt;
+
+&lt;p&gt;新建scrollview_cell.xml文件，定义如下：&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='xml'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='cp'&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	&lt;span class='nt'&gt;&amp;lt;ui&lt;/span&gt; &lt;span class='na'&gt;namespace=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;scrollview_cell&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 	&lt;span class='nt'&gt;&amp;lt;linear&lt;/span&gt; &lt;span class='na'&gt;orientation=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;v&amp;quot;&lt;/span&gt; &lt;span class='na'&gt;class=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;wrapper&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt;         &lt;span class='nt'&gt;&amp;lt;label&lt;/span&gt; &lt;span class='na'&gt;id=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;fileName&amp;quot;&lt;/span&gt; &lt;span class='na'&gt;class=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;bottom-text&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;test&lt;span class='nt'&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt;     &lt;span class='nt'&gt;&amp;lt;/linear&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 	&lt;span class='nt'&gt;&amp;lt;style&lt;/span&gt; &lt;span class='na'&gt;type=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt;         .wrapper {
+&lt;span class='lineno'&gt; 8&lt;/span&gt;             width: 100%;
+&lt;span class='lineno'&gt; 9&lt;/span&gt;             height: auto;
+&lt;span class='lineno'&gt;10&lt;/span&gt;         }
+&lt;span class='lineno'&gt;11&lt;/span&gt; 		.bottom-text {
+&lt;span class='lineno'&gt;12&lt;/span&gt;         width: 100%;
+&lt;span class='lineno'&gt;13&lt;/span&gt;         height: 30px;
+&lt;span class='lineno'&gt;14&lt;/span&gt;         margin-left: 2px;
+&lt;span class='lineno'&gt;15&lt;/span&gt;         margin-right: 6px;
+&lt;span class='lineno'&gt;16&lt;/span&gt;         margin-top:0px;
+&lt;span class='lineno'&gt;17&lt;/span&gt;         color: #999;
+&lt;span class='lineno'&gt;18&lt;/span&gt;         font-size: 12px;
+&lt;span class='lineno'&gt;19&lt;/span&gt;         font-weight: bold;
+&lt;span class='lineno'&gt;20&lt;/span&gt; 		}
+&lt;span class='lineno'&gt;21&lt;/span&gt; 	&lt;span class='nt'&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class='lineno'&gt;22&lt;/span&gt; 	&lt;span class='nt'&gt;&amp;lt;/ui&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在.h,.m中定义对应的类&lt;/p&gt;
+
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='k'&gt;@interface&lt;/span&gt; &lt;span class='nc'&gt;ScrollView_cell&lt;/span&gt;: &lt;span class='nc'&gt;BeeUICell&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	&lt;span class='k'&gt;@end&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 	
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 	&lt;span class='err'&gt;#&lt;/span&gt;&lt;span class='n'&gt;pragma&lt;/span&gt; &lt;span class='n'&gt;mark&lt;/span&gt; &lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='n'&gt;cell&lt;/span&gt; &lt;span class='n'&gt;definition&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 	&lt;span class='k'&gt;@implementation&lt;/span&gt; &lt;span class='nc'&gt;ScrollView_cell&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 	&lt;span class='n'&gt;SUPPORT_AUTOMATIC_LAYOUT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt; &lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 	&lt;span class='n'&gt;SUPPORT_RESOURCE_LOADING&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt; &lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 
+&lt;span class='lineno'&gt;10&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;void&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;dataDidChanged&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt; 		&lt;span class='kt'&gt;FILE&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt; &lt;span class='n'&gt;file&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;data&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 		&lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;file&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt;14&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;15&lt;/span&gt; 			&lt;span class='err'&gt;$&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;#fileName&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;).&lt;/span&gt;&lt;span class='n'&gt;DATA&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;file&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;displayname&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt;16&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;17&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;18&lt;/span&gt; 	&lt;span class='k'&gt;@end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;其中，dataDidChanged是将后台数据展现直前台的关键code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id='scroll_view_delegate'&gt;scroll view delegate&lt;/h1&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;NSInteger&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;numberOfViewsInScrollView&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 		&lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;files&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;count&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 	
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;UIView&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt; &lt;span class='n'&gt;viewForIndex&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;NSInteger&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;index&lt;/span&gt; &lt;span class='n'&gt;scale&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;CGFloat&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scale&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 		&lt;span class='n'&gt;ScrollView_cell&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt; &lt;span class='n'&gt;cell&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt; &lt;span class='n'&gt;dequeueWithContentClass&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;ScrollView_cell&lt;/span&gt; &lt;span class='n'&gt;class&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 		&lt;span class='n'&gt;cell&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;data&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;files&lt;/span&gt; &lt;span class='n'&gt;safeObjectAtIndex&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;index&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;10&lt;/span&gt; 		&lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;cell&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;CGSize&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt; &lt;span class='n'&gt;sizeForIndex&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;NSInteger&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;index&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;14&lt;/span&gt; 	    &lt;span class='n'&gt;CGSize&lt;/span&gt; &lt;span class='n'&gt;cgsize&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;ScrollView_cell&lt;/span&gt; &lt;span class='n'&gt;estimateUISizeByWidth&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;scrollView&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;width&lt;/span&gt;
+&lt;span class='lineno'&gt;15&lt;/span&gt; 													   &lt;span class='nl'&gt;forData:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;files&lt;/span&gt; &lt;span class='n'&gt;safeObjectAtIndex&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;index&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;span class='lineno'&gt;16&lt;/span&gt; 	    &lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;cgsize&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;17&lt;/span&gt; 	    
+&lt;span class='lineno'&gt;18&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意的是，self.model是采用observer模式，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;MyModel&lt;/span&gt; &lt;span class='n'&gt;modelWithObserver&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用scaffold产生的model，controller会更新MyModel，亦即self.model.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id='id2'&gt;下拉更新&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;主要设置&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_scroll&lt;/span&gt; &lt;span class='n'&gt;showHeaderLoader&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nb'&gt;YES&lt;/span&gt; &lt;span class='n'&gt;animated&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nb'&gt;NO&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_scroll&lt;/span&gt; &lt;span class='n'&gt;setContentOffset&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;CGPointZero&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id='process_signal'&gt;process signal&lt;/h2&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='n'&gt;ON_SIGNAL2&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;signal&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 		&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;super&lt;/span&gt; &lt;span class='n'&gt;handleUISignal&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;signal&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 		
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 		&lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;signal&lt;/span&gt; &lt;span class='n'&gt;is&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;HEADER_REFRESH&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 	        &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt; &lt;span class='n'&gt;refreshData&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 		&lt;span class='k'&gt;else&lt;/span&gt; &lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;signal&lt;/span&gt; &lt;span class='n'&gt;is&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;BeeUIScrollView&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;REACH_BOTTOM&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt;10&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 	        &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;model&lt;/span&gt; &lt;span class='n'&gt;refreshData&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;	
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id='callback'&gt;callback&lt;/h2&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;void&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;API_APPLE_GETFILELIST_ACTION&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;API_APPLE_GETFILELIST_ACTION&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;api&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 		&lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;sending&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 			&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt; &lt;span class='n'&gt;presentLoadingTips&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;Loading...&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 		&lt;span class='k'&gt;else&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 			&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt; &lt;span class='n'&gt;dismissTips&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;10&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 	    
+&lt;span class='lineno'&gt;12&lt;/span&gt; 		&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_scroll&lt;/span&gt; &lt;span class='n'&gt;setHeaderLoading&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;sending&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;&lt;span class='c1'&gt;//如果没有这句，只能下拉更新一次，很奇怪的依赖。没有深究，也许bee有自己的考虑。&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 	    
+&lt;span class='lineno'&gt;14&lt;/span&gt; 		&lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;succeed&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt;15&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;16&lt;/span&gt; 			&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_scroll&lt;/span&gt; &lt;span class='n'&gt;reloadData&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;17&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;18&lt;/span&gt; 		&lt;span class='k'&gt;else&lt;/span&gt; &lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;failed&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='lineno'&gt;19&lt;/span&gt; 		&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;20&lt;/span&gt; 			&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt; &lt;span class='n'&gt;presentFailureTips&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;Error occurred&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;21&lt;/span&gt; 		&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;22&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;到这里就可以实现下拉更新。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id='pullloader'&gt;自定义PullLoader&lt;/h2&gt;
+
+&lt;p&gt;example里的pullLoader就是。 需要注意的是&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;BeeUIPullLoader&lt;/span&gt; &lt;span class='n'&gt;setDefaultClass&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;MyPullLoader&lt;/span&gt; &lt;span class='n'&gt;class&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果有多个scrollview，并且使用不同的pullloader，那么需要在&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_scroll&lt;/span&gt; &lt;span class='n'&gt;showHeaderLoader&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nb'&gt;YES&lt;/span&gt; &lt;span class='n'&gt;animated&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nb'&gt;NO&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;之前指定PullLoader;&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>CorePlot基础</title>
+   <link href="http://blog.example.com/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html"/>
+   <updated>2013-08-13T17:36:03+08:00</updated>
+   <id>http://blog.example.com/opensource/2013/08/13/CorePlot基础</id>
+   <content type="html">&lt;blockquote&gt;
+&lt;p&gt;一些小的基础知识&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;另，对于想在图中间突出显示一个x轴，而又想坐标值显示在最下面：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一种方式：利用label offset设置，但是需要动态计算，不是很方便。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;另一种方式：增加一个轴放到中间，其label为空，而最边上的轴显示坐标。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id='id1'&gt;允许拖动&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; &lt;span class='n'&gt;plotSpace&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;allowsUserInteraction&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id='xyx2'&gt;在x,y轴外另加一个x2轴&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;CPTXYPlotSpace&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='n'&gt;barGraphPlotSpace&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='n'&gt;CPTXYPlotSpace&lt;/span&gt; &lt;span class='n'&gt;alloc&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='n'&gt;init&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='n'&gt;barGraphPlotSpace&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;xRange&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;plotSpace&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;xRange&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt;     &lt;span class='n'&gt;barGraphPlotSpace&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;yRange&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;plotSpace&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;yRange&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里新建的PlotSpace大小跟原图一样&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='n'&gt;CPTXYAxis&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='n'&gt;x2&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='n'&gt;CPTXYAxis&lt;/span&gt; &lt;span class='n'&gt;alloc&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='n'&gt;init&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;coordinate&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTCoordinateX&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='c1'&gt;//x轴平行&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;orthogonalCoordinateDecimal&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTDecimalFromFloat&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mf'&gt;0.0&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;labelingPolicy&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTAxisLabelingPolicyNone&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;visibleAxisRange&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTPlotRange&lt;/span&gt; &lt;span class='n'&gt;plotRangeWithLocation&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;CPTDecimalFromInt&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;0&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;length&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;CPTDecimalFromInt&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;30&lt;/span&gt;&lt;span class='p'&gt;)];&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;plotSpace&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;barGraphPlotSpace&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisLineStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;lineStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt;     &lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisLineCapMax&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;lineCap&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt;     
+&lt;span class='lineno'&gt;10&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_graph&lt;/span&gt; &lt;span class='n'&gt;addPlotSpace&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;barGraphPlotSpace&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt;     &lt;span class='n'&gt;NSMutableArray&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='n'&gt;newAxes&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisSet&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axes&lt;/span&gt; &lt;span class='n'&gt;mutableCopy&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;newAxes&lt;/span&gt; &lt;span class='n'&gt;addObject&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;x2&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisSet&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axes&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;newAxes&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其中_graph是整个view的CPTXYGraph&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id='major_tick'&gt;不显示Major Tick&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;lineStyle&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lineWidth&lt;/span&gt;         &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='mf'&gt;0.0f&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;majorTickLineStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;lineStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;只需将major tick的linewidth设置为0，其他的方法都没这个好。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id='xy'&gt;x,y轴末尾箭头&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='n'&gt;CPTLineCap&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='n'&gt;lineCap&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='n'&gt;CPTLineCap&lt;/span&gt; &lt;span class='n'&gt;alloc&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='n'&gt;init&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='n'&gt;lineCap&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lineStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;lineStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt;     &lt;span class='n'&gt;lineCap&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lineCapType&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTLineCapTypeOpenArrow&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;4&lt;/span&gt;     &lt;span class='n'&gt;lineCap&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;size&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CGSizeMake&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mf'&gt;5.0&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;8.0&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt;5&lt;/span&gt;     &lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisLineCapMax&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;lineCap&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id='grid_line'&gt;设置Grid Line&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='n'&gt;CPTMutableLineStyle&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='n'&gt;gridLineStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTMutableLineStyle&lt;/span&gt; &lt;span class='n'&gt;lineStyle&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='n'&gt;gridLineStyle&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lineColor&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTColor&lt;/span&gt; &lt;span class='n'&gt;grayColor&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt;     &lt;span class='n'&gt;gridLineStyle&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lineWidth&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='mf'&gt;0.5f&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;4&lt;/span&gt;     &lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;majorGridLineStyle&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='n'&gt;gridLineStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id='legend'&gt;增加Legend&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTLegend&lt;/span&gt; &lt;span class='n'&gt;legendWithGraph&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;textStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;titleTextStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;fill&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTFill&lt;/span&gt; &lt;span class='n'&gt;fillWithColor&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;CPTColor&lt;/span&gt; &lt;span class='n'&gt;whiteColor&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;span class='lineno'&gt;4&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;borderLineStyle&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisLineStyle&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;5&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;cornerRadius&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='mf'&gt;5.0&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;6&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legend&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;swatchSize&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CGSizeMake&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mf'&gt;10.0&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;10.0&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;&lt;span class='c1'&gt;//border size&lt;/span&gt;
+&lt;span class='lineno'&gt;7&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legendAnchor&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTRectAnchorTop&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;8&lt;/span&gt;     &lt;span class='n'&gt;_graph&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;legendDisplacement&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CGPointMake&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mf'&gt;0.0&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;1.0&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id='xlabel'&gt;x轴使用自定义label&lt;/h4&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;labelingPolicy&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTAxisLabelingPolicyNone&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;axisLabels&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt; &lt;span class='n'&gt;getMyXaxisLabels&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 	&lt;span class='n'&gt;x&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;majorTickLocations&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;NSSet&lt;/span&gt; &lt;span class='n'&gt;setWithArray&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;locationLabels&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在自己生成自定义的label时要注意的是&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;newLabel&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;tickLocation&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;CPTDecimalFromUnsignedInteger&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;n&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;locationLabels&lt;/span&gt; &lt;span class='n'&gt;addObject&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;NSNumber&lt;/span&gt; &lt;span class='n'&gt;numberWithInt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;n&lt;/span&gt;&lt;span class='p'&gt;)]];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上面这location要对应一致，否则在显示上有偏差。CPTAxisLabel自己有个property ‘location’，而locationLabels 会赋予axis.majorTickLocations, coreplot在渲染时会根据比较两者的location来将label放入相应的位置。&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+ </entry>
  
  <entry>
    <title>BeeFramework入门-scaffold-II</title>
@@ -27,9 +280,10 @@
 
 &lt;h2 id='1file'&gt;1.FILE&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;@interface FILE : BeeActiveObject
-@property (nonatomic, retain) NSString *		content;
-@property (nonatomic, retain) NSString *		filename;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='k'&gt;@interface&lt;/span&gt; &lt;span class='nc'&gt;FILE&lt;/span&gt; : &lt;span class='nc'&gt;BeeActiveObject&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;NSString&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;		&lt;span class='n'&gt;content&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;NSString&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;		&lt;span class='n'&gt;filename&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;数据会存在FILE里面。&lt;/p&gt;
@@ -37,8 +291,9 @@
 
 &lt;h2 id='2req_getfiles_action'&gt;2.REQ_GETFILES_ACTION&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;@interface REQ_GETFILES_ACTION : BeeActiveObject
-@property (nonatomic, retain) NSNumber *		fileCategory;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='k'&gt;@interface&lt;/span&gt; &lt;span class='nc'&gt;REQ_GETFILES_ACTION&lt;/span&gt; : &lt;span class='nc'&gt;BeeActiveObject&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;NSNumber&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;		&lt;span class='n'&gt;fileCategory&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;向server发的请求，这里只有一个参数&amp;#8217;fileCategory&amp;#8217;.&lt;/p&gt;
@@ -46,9 +301,10 @@
 
 &lt;h2 id='3resp_getfiles_action'&gt;3.RESP_GETFILES_ACTION&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;@interface RESP_GETFILES_ACTION : BeeActiveObject
-@property (nonatomic, retain) NSArray *		data;
-@property (nonatomic, retain) NSString *		returncode;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='k'&gt;@interface&lt;/span&gt; &lt;span class='nc'&gt;RESP_GETFILES_ACTION&lt;/span&gt; : &lt;span class='nc'&gt;BeeActiveObject&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;NSArray&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;		&lt;span class='n'&gt;data&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;NSString&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;		&lt;span class='n'&gt;returncode&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;server的response。data里面存储的数据最终会通过宏CONVERT_PROPERTY_CLASS( data, FILE )转换为一个list，其中的element是FILE。&lt;/p&gt;
@@ -56,9 +312,10 @@
 
 &lt;h2 id='4api_getfiles_action'&gt;4.API_GETFILES_ACTION&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;@interface API_GETFILES_ACTION : BeeRoutine
-@property (nonatomic, retain) REQ_GETFILES_ACTION *	req;
-@property (nonatomic, retain) RESP_GETFILES_ACTION *	resp;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='k'&gt;@interface&lt;/span&gt; &lt;span class='nc'&gt;API_GETFILES_ACTION&lt;/span&gt; : &lt;span class='nc'&gt;BeeRoutine&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;REQ_GETFILES_ACTION&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;	&lt;span class='n'&gt;req&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 	&lt;span class='k'&gt;@property&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;nonatomic&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;retain&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;RESP_GETFILES_ACTION&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;	&lt;span class='n'&gt;resp&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;发送请求以及处理响应的BeeRoutine.&lt;/p&gt;
@@ -71,24 +328,21 @@
 &lt;blockquote&gt;
 &lt;p&gt;BeeRoutine已经封装了这些操作。既然API_GETFILES_ACTION继承自它，只需:&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;API_GETFILES_ACTION * api = [API_GETFILES_ACTION apiWithResponder:self];
-api.req.fileCategory = @111;//set request parameters
-[api send];&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;API_GETFILES_ACTION&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt; &lt;span class='n'&gt;api&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;API_GETFILES_ACTION&lt;/span&gt; &lt;span class='n'&gt;apiWithResponder&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;req&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;fileCategory&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='mi'&gt;@111&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;&lt;span class='c1'&gt;//set request parameters&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;api&lt;/span&gt; &lt;span class='n'&gt;send&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;指定responder为self，需自定义&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;- (void)API_GETFILES_ACTION:(API_GETFILES_ACTION *)api&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='o'&gt;-&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;void&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;API_GETFILES_ACTION&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;API_GETFILES_ACTION&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;api&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;作为所有的action包括发送请求，请求结果的callback。 在API_GETFILES_ACTION::routine中,会调用&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;NSString * requestURI = @&amp;quot;http://www.163.com/getFiles.action&amp;quot;;
-self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;NSString&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt; &lt;span class='n'&gt;requestURI&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s'&gt;@&amp;quot;http://www.163.com/getFiles.action&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt; 	&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;HTTP_GET&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;requestURI&lt;/span&gt; &lt;span class='p'&gt;).&lt;/span&gt;&lt;span class='n'&gt;PARAM&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;req&lt;/span&gt; &lt;span class='n'&gt;objectToDictionary&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='p'&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;完成request的发送。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -98,15 +352,13 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;
 &lt;blockquote&gt;
 &lt;p&gt;同样在API_GETFILES_ACTION::routine中&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;self.resp = [RESP_GETFILES_ACTION objectFromDictionary:(NSDictionary *)result];&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;resp&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;RESP_GETFILES_ACTION&lt;/span&gt; &lt;span class='n'&gt;objectFromDictionary&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;NSDictionary&lt;/span&gt; &lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='n'&gt;result&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在json文件中已经定义好了返回的格式，这里会直接转换为response。然后只需在自定义的responder里面提取出来&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code&gt;[self.files addObjectsFromArray:api.resp.data];&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt; 	&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;files&lt;/span&gt; &lt;span class='n'&gt;addObjectsFromArray&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;api&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;resp&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;data&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;至此，从server取到数据并转换为内部model list.&lt;/p&gt;
 &lt;/blockquote&gt;</content>
@@ -119,25 +371,22 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;
    <id>http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework入门-scaffold</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
-&lt;p&gt;IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下: &lt;pre&gt;
-&lt;code&gt;
-{
-	data =
-    (
-        {
-           filename = &quot;name1&quot;;
-           content = &quot;content1&quot;;
-        },
-        {
-		   filename = &quot;name2&quot;;
-		   content = &quot;content2&quot;;
-		 }
-	);
-	returncode = 400;
-}
-&lt;/code&gt;
-&lt;/pre&gt;&lt;/p&gt;
-
+&lt;p&gt;IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='json'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 		&lt;span class='err'&gt;data&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 	    &lt;span class='err'&gt;(&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 			&lt;span class='err'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 				&lt;span class='err'&gt;filename&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt; &lt;span class='nt'&gt;&amp;quot;name1&amp;quot;&lt;/span&gt;&lt;span class='err'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 				&lt;span class='err'&gt;content&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;content1&amp;quot;&lt;/span&gt;&lt;span class='err'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 	        &lt;span class='p'&gt;}&lt;/span&gt;&lt;span class='err'&gt;,&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 	        &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 				&lt;span class='err'&gt;filename&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt; &lt;span class='nt'&gt;&amp;quot;name2&amp;quot;&lt;/span&gt;&lt;span class='err'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;10&lt;/span&gt; 				&lt;span class='err'&gt;content&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;content2&amp;quot;&lt;/span&gt;&lt;span class='err'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 			&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt; 		&lt;span class='err'&gt;);&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 		&lt;span class='err'&gt;returncode&lt;/span&gt; &lt;span class='err'&gt;=&lt;/span&gt; &lt;span class='mi'&gt;400&lt;/span&gt;&lt;span class='err'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;14&lt;/span&gt; 	&lt;span class='err'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id='scaffold'&gt;Scaffold&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -153,43 +402,40 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;
 &lt;blockquote&gt;
 &lt;p&gt;根据server返回的json格式,对应的xxxx.json如下(具体规则参考&lt;strong&gt;scaffold.md&lt;/strong&gt;)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;
-&lt;code&gt;
-{
-    &quot;title&quot; : &quot;xxxxxx&quot;,
-    &quot;author&quot;: &quot;whatever&quot;,
-
-    &quot;server&quot; : 
-    {
-        &quot;development&quot; : &quot;/*取数据的server address*/&quot;
-    },
-
-    &quot;model&quot; :
-    {
-        &quot;FILE&quot; :
-        {
-		            &quot;filename&quot; : &quot;name1&quot;,
-		            &quot;content&quot; : &quot;content1&quot;,
-		    }
-    },
-    &quot;controller&quot; :
-    {
-        &quot;GET /getFiles.action&quot;:
-        {
-            &quot;request&quot; :
-            {
-                &quot;fileCategory&quot; : 111 
-            },
-            &quot;response&quot;: //server 返回json数据格式
-            {
-		            &quot;data&quot;:[&quot;{FILE}&quot;],//上面定义的model &quot;FILE&quot;
-                &quot;returncode&quot;:&quot;400&quot;
-            }
-        }
-     }
-}
-&lt;/code&gt;
-&lt;/pre&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='json'&gt;&lt;span class='lineno'&gt; 1&lt;/span&gt; 	&lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 2&lt;/span&gt; 	    &lt;span class='nt'&gt;&amp;quot;title&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;xxxxxx&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='lineno'&gt; 3&lt;/span&gt; 	    &lt;span class='nt'&gt;&amp;quot;author&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;whatever&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='lineno'&gt; 4&lt;/span&gt; 	
+&lt;span class='lineno'&gt; 5&lt;/span&gt; 	    &lt;span class='nt'&gt;&amp;quot;server&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; 
+&lt;span class='lineno'&gt; 6&lt;/span&gt; 	    &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt; 7&lt;/span&gt; 	        &lt;span class='nt'&gt;&amp;quot;development&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;/*取数据的server address*/&amp;quot;&lt;/span&gt;
+&lt;span class='lineno'&gt; 8&lt;/span&gt; 	    &lt;span class='p'&gt;},&lt;/span&gt;
+&lt;span class='lineno'&gt; 9&lt;/span&gt; 	
+&lt;span class='lineno'&gt;10&lt;/span&gt; 	    &lt;span class='nt'&gt;&amp;quot;model&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt;
+&lt;span class='lineno'&gt;11&lt;/span&gt; 	    &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;12&lt;/span&gt; 	        &lt;span class='nt'&gt;&amp;quot;FILE&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt;
+&lt;span class='lineno'&gt;13&lt;/span&gt; 	        &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;14&lt;/span&gt; 			            &lt;span class='nt'&gt;&amp;quot;filename&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;name1&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='lineno'&gt;15&lt;/span&gt; 			            &lt;span class='nt'&gt;&amp;quot;content&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;content1&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='lineno'&gt;16&lt;/span&gt; 			    &lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;17&lt;/span&gt; 	    &lt;span class='p'&gt;},&lt;/span&gt;
+&lt;span class='lineno'&gt;18&lt;/span&gt; 	    &lt;span class='nt'&gt;&amp;quot;controller&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt;
+&lt;span class='lineno'&gt;19&lt;/span&gt; 	    &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;20&lt;/span&gt; 	        &lt;span class='nt'&gt;&amp;quot;GET /getFiles.action&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt;
+&lt;span class='lineno'&gt;21&lt;/span&gt; 	        &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;22&lt;/span&gt; 	            &lt;span class='nt'&gt;&amp;quot;request&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt;
+&lt;span class='lineno'&gt;23&lt;/span&gt; 	            &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;24&lt;/span&gt; 	                &lt;span class='nt'&gt;&amp;quot;fileCategory&amp;quot;&lt;/span&gt; &lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;111&lt;/span&gt; 
+&lt;span class='lineno'&gt;25&lt;/span&gt; 	            &lt;span class='p'&gt;},&lt;/span&gt;
+&lt;span class='lineno'&gt;26&lt;/span&gt; 	            &lt;span class='nt'&gt;&amp;quot;response&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt; &lt;span class='err'&gt;/*server&lt;/span&gt; &lt;span class='err'&gt;返回json数据格式*/&lt;/span&gt;
+&lt;span class='lineno'&gt;27&lt;/span&gt; 	            &lt;span class='p'&gt;{&lt;/span&gt;
+&lt;span class='lineno'&gt;28&lt;/span&gt; 			            &lt;span class='nt'&gt;&amp;quot;data&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;:[&lt;/span&gt;&lt;span class='s2'&gt;&amp;quot;{FILE}&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;&lt;span class='err'&gt;/*上面定义的model&lt;/span&gt; &lt;span class='nt'&gt;&amp;quot;FILE&amp;quot;&lt;/span&gt;&lt;span class='err'&gt;*/&lt;/span&gt;
+&lt;span class='lineno'&gt;29&lt;/span&gt; 	                &lt;span class='s2'&gt;&amp;quot;returncode&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt;&lt;span class='s2'&gt;&amp;quot;400&amp;quot;&lt;/span&gt;
+&lt;span class='lineno'&gt;30&lt;/span&gt; 	            &lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;31&lt;/span&gt; 	        &lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;32&lt;/span&gt; 	     &lt;span class='p'&gt;}&lt;/span&gt;
+&lt;span class='lineno'&gt;33&lt;/span&gt; 	&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id='2_run_scaffold_xxxxjson'&gt;2. run &amp;#8220;scaffold xxxx.json&amp;#8221;&lt;/h2&gt;
 
 &lt;blockquote&gt;
@@ -210,29 +456,23 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;
 
 &lt;h2 id='download_specs48gz'&gt;不能download specs.4.8.gz&lt;/h2&gt;
 
-&lt;p&gt;这个问题很坑爹，本来按照安装cocoapods的流程： &lt;pre&gt;
-  &lt;code&gt;
-    gem update --system
-    sudo gem install cocoapods
-  &lt;/code&gt;
-&lt;/pre&gt; 结果发现被墙，于是修改源： &lt;a href='http://ruby.taobao.org'&gt;taobao镜像&lt;/a&gt; 但还是死活装不上，后来用 &lt;pre&gt;
-&lt;code&gt;
-    gem install cocoapods -V
-&lt;/code&gt;
-&lt;/pre&gt; 才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是&lt;strong&gt;修改文件夹权限&lt;/strong&gt;，cocoapods顺利装上。&lt;/p&gt;
+&lt;p&gt;这个问题很坑爹，本来按照安装cocoapods的流程：&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     gem update --system
+&lt;span class='lineno'&gt;2&lt;/span&gt;     sudo gem install cocoapods
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;结果发现被墙，于是修改源： &lt;a href='http://ruby.taobao.org'&gt;taobao镜像&lt;/a&gt; 但还是死活装不上，后来用&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     gem install cocoapods -V
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;才发现没有permission. 但是你要用sudo就说不能download specs.4.8，我了个擦，玩儿人不是。 决定不管sudo，于是&lt;strong&gt;修改文件夹权限&lt;/strong&gt;，cocoapods顺利装上。&lt;/p&gt;
 
 &lt;h2 id='jekyll'&gt;安装jekyll的问题&lt;/h2&gt;
 
-&lt;p&gt;正常来说： &lt;pre&gt;
-&lt;code&gt;
-    $ gem install jekyll
-&lt;/code&gt;
-&lt;/pre&gt; 然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2 &lt;pre&gt;
-&lt;code&gt;
-    $ rvm install 1.9.2
-&lt;/code&gt;
-&lt;/pre&gt;&lt;/p&gt;
-
+&lt;p&gt;正常来说：&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='nv'&gt;$ &lt;/span&gt;gem install jekyll
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后报错，得知ruby1.8.7版本太低，于是打算安装1.9.2&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sh'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='nv'&gt;$ &lt;/span&gt;rvm install 1.9.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
 &lt;p&gt;报错说macports有问题（当时心中千万匹草泥马） 按照此贴操作无果（应该有用，只是没有解决我的问题）&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -248,14 +488,6 @@ self.HTTP_GET( requestURI ).PARAM( [self.req objectToDictionary] );&lt;/code&gt;
 &lt;blockquote&gt;
 &lt;p&gt;期间还遇到了各种乱七八糟，形形色色的小问题，但记不太清了。先这样吧。&lt;/p&gt;
 &lt;/blockquote&gt;</content>
- </entry>
- 
- <entry>
-   <title>Horray!!</title>
-   <link href="http://blog.example.com/jekyll/update/2013/08/02/welcome-to-jekyll.html"/>
-   <updated>2013-08-02T22:38:03+08:00</updated>
-   <id>http://blog.example.com/jekyll/update/2013/08/02/welcome-to-jekyll</id>
-   <content type="html">&lt;p&gt;Finally settle down!&lt;/p&gt;</content>
  </entry>
  
 

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CorePlot基础 - Huskar Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <div class="container">
+          <div class="site">
+               <div class="header">
+                   <h1 class="title"><a href="/">Huskar Blog</a></h1>
+               </div>
+                <h1>CorePlot基础</h1>
+                <div class="postdate">Posted on 13 Aug 2013</div>
+
+
+
+<div class="post">
+<blockquote>
+<p>一些小的基础知识</p>
+</blockquote>
+
+<blockquote>
+<p>另，对于想在图中间突出显示一个x轴，而又想坐标值显示在最下面：</p>
+</blockquote>
+
+<blockquote>
+<blockquote>
+<p>一种方式：利用label offset设置，但是需要动态计算，不是很方便。</p>
+</blockquote>
+</blockquote>
+
+<blockquote>
+<blockquote>
+<p>另一种方式：增加一个轴放到中间，其label为空，而最边上的轴显示坐标。</p>
+</blockquote>
+</blockquote>
+
+<h4 id='id1'>允许拖动</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> <span class='n'>plotSpace</span><span class='p'>.</span><span class='n'>allowsUserInteraction</span> <span class='o'>=</span> <span class='nb'>YES</span><span class='p'>;</span>
+</code></pre></div>
+<h4 id='xyx2'>在x,y轴外另加一个x2轴</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>CPTXYPlotSpace</span> <span class='o'>*</span><span class='n'>barGraphPlotSpace</span> <span class='o'>=</span> <span class='p'>[[</span><span class='n'>CPTXYPlotSpace</span> <span class='n'>alloc</span><span class='p'>]</span> <span class='n'>init</span><span class='p'>];</span>
+<span class='lineno'>2</span>     <span class='n'>barGraphPlotSpace</span><span class='p'>.</span><span class='n'>xRange</span> <span class='o'>=</span> <span class='n'>plotSpace</span><span class='p'>.</span><span class='n'>xRange</span><span class='p'>;</span>
+<span class='lineno'>3</span>     <span class='n'>barGraphPlotSpace</span><span class='p'>.</span><span class='n'>yRange</span> <span class='o'>=</span> <span class='n'>plotSpace</span><span class='p'>.</span><span class='n'>yRange</span><span class='p'>;</span>
+</code></pre></div>
+<blockquote>
+<p>这里新建的PlotSpace大小跟原图一样</p>
+</blockquote>
+<div class='highlight'><pre><code class='objc'><span class='lineno'> 1</span> 	<span class='n'>CPTXYAxis</span> <span class='o'>*</span><span class='n'>x2</span> <span class='o'>=</span> <span class='p'>[[</span><span class='n'>CPTXYAxis</span> <span class='n'>alloc</span><span class='p'>]</span> <span class='n'>init</span><span class='p'>];</span>
+<span class='lineno'> 2</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>coordinate</span> <span class='o'>=</span> <span class='n'>CPTCoordinateX</span><span class='p'>;</span><span class='c1'>//x轴平行</span>
+<span class='lineno'> 3</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>orthogonalCoordinateDecimal</span> <span class='o'>=</span> <span class='n'>CPTDecimalFromFloat</span><span class='p'>(</span><span class='mf'>0.0</span><span class='p'>);</span>
+<span class='lineno'> 4</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>labelingPolicy</span> <span class='o'>=</span> <span class='n'>CPTAxisLabelingPolicyNone</span><span class='p'>;</span>
+<span class='lineno'> 5</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>visibleAxisRange</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>CPTPlotRange</span> <span class='n'>plotRangeWithLocation</span><span class='o'>:</span><span class='n'>CPTDecimalFromInt</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>)</span> <span class='n'>length</span><span class='o'>:</span><span class='n'>CPTDecimalFromInt</span><span class='p'>(</span><span class='mi'>30</span><span class='p'>)];</span>
+<span class='lineno'> 6</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>plotSpace</span> <span class='o'>=</span> <span class='n'>barGraphPlotSpace</span><span class='p'>;</span>
+<span class='lineno'> 7</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>axisLineStyle</span> <span class='o'>=</span> <span class='n'>lineStyle</span><span class='p'>;</span>
+<span class='lineno'> 8</span>     <span class='n'>x2</span><span class='p'>.</span><span class='n'>axisLineCapMax</span> <span class='o'>=</span> <span class='n'>lineCap</span><span class='p'>;</span>
+<span class='lineno'> 9</span>     
+<span class='lineno'>10</span>     <span class='p'>[</span><span class='n'>_graph</span> <span class='n'>addPlotSpace</span><span class='o'>:</span><span class='n'>barGraphPlotSpace</span><span class='p'>];</span>
+<span class='lineno'>11</span>     <span class='n'>NSMutableArray</span> <span class='o'>*</span><span class='n'>newAxes</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>_graph</span><span class='p'>.</span><span class='n'>axisSet</span><span class='p'>.</span><span class='n'>axes</span> <span class='n'>mutableCopy</span><span class='p'>];</span>
+<span class='lineno'>12</span>     <span class='p'>[</span><span class='n'>newAxes</span> <span class='n'>addObject</span><span class='o'>:</span><span class='n'>x2</span><span class='p'>];</span>
+<span class='lineno'>13</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>axisSet</span><span class='p'>.</span><span class='n'>axes</span> <span class='o'>=</span> <span class='n'>newAxes</span><span class='p'>;</span>
+</code></pre></div>
+<blockquote>
+<p>其中_graph是整个view的CPTXYGraph</p>
+</blockquote>
+
+<h4 id='major_tick'>不显示Major Tick</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>lineStyle</span><span class='p'>.</span><span class='n'>lineWidth</span>         <span class='o'>=</span> <span class='mf'>0.0f</span><span class='p'>;</span>
+<span class='lineno'>2</span>     <span class='n'>x</span><span class='p'>.</span><span class='n'>majorTickLineStyle</span> <span class='o'>=</span> <span class='n'>lineStyle</span><span class='p'>;</span>
+</code></pre></div>
+<blockquote>
+<p>只需将major tick的linewidth设置为0，其他的方法都没这个好。</p>
+</blockquote>
+
+<h4 id='xy'>x,y轴末尾箭头</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>     <span class='n'>CPTLineCap</span> <span class='o'>*</span><span class='n'>lineCap</span> <span class='o'>=</span> <span class='p'>[[</span><span class='n'>CPTLineCap</span> <span class='n'>alloc</span><span class='p'>]</span> <span class='n'>init</span><span class='p'>];</span>
+<span class='lineno'>2</span>     <span class='n'>lineCap</span><span class='p'>.</span><span class='n'>lineStyle</span> <span class='o'>=</span> <span class='n'>lineStyle</span><span class='p'>;</span>
+<span class='lineno'>3</span>     <span class='n'>lineCap</span><span class='p'>.</span><span class='n'>lineCapType</span> <span class='o'>=</span> <span class='n'>CPTLineCapTypeOpenArrow</span><span class='p'>;</span>
+<span class='lineno'>4</span>     <span class='n'>lineCap</span><span class='p'>.</span><span class='n'>size</span> <span class='o'>=</span> <span class='n'>CGSizeMake</span><span class='p'>(</span><span class='mf'>5.0</span><span class='p'>,</span> <span class='mf'>8.0</span><span class='p'>);</span>
+<span class='lineno'>5</span>     <span class='n'>x</span><span class='p'>.</span><span class='n'>axisLineCapMax</span> <span class='o'>=</span> <span class='n'>lineCap</span><span class='p'>;</span>
+</code></pre></div>
+<h4 id='grid_line'>设置Grid Line</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>     <span class='n'>CPTMutableLineStyle</span> <span class='o'>*</span><span class='n'>gridLineStyle</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>CPTMutableLineStyle</span> <span class='n'>lineStyle</span><span class='p'>];</span>
+<span class='lineno'>2</span>     <span class='n'>gridLineStyle</span><span class='p'>.</span><span class='n'>lineColor</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>CPTColor</span> <span class='n'>grayColor</span><span class='p'>];</span>
+<span class='lineno'>3</span>     <span class='n'>gridLineStyle</span><span class='p'>.</span><span class='n'>lineWidth</span> <span class='o'>=</span> <span class='mf'>0.5f</span><span class='p'>;</span>
+<span class='lineno'>4</span>     <span class='n'>x</span><span class='p'>.</span><span class='n'>majorGridLineStyle</span><span class='o'>=</span><span class='n'>gridLineStyle</span><span class='p'>;</span>
+</code></pre></div>
+<h4 id='legend'>增加Legend</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>CPTLegend</span> <span class='n'>legendWithGraph</span><span class='o'>:</span><span class='n'>_graph</span><span class='p'>];</span>
+<span class='lineno'>2</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span><span class='p'>.</span><span class='n'>textStyle</span> <span class='o'>=</span> <span class='n'>x</span><span class='p'>.</span><span class='n'>titleTextStyle</span><span class='p'>;</span>
+<span class='lineno'>3</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span><span class='p'>.</span><span class='n'>fill</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>CPTFill</span> <span class='n'>fillWithColor</span><span class='o'>:</span><span class='p'>[</span><span class='n'>CPTColor</span> <span class='n'>whiteColor</span><span class='p'>]];</span>
+<span class='lineno'>4</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span><span class='p'>.</span><span class='n'>borderLineStyle</span> <span class='o'>=</span> <span class='n'>x</span><span class='p'>.</span><span class='n'>axisLineStyle</span><span class='p'>;</span>
+<span class='lineno'>5</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span><span class='p'>.</span><span class='n'>cornerRadius</span> <span class='o'>=</span> <span class='mf'>5.0</span><span class='p'>;</span>
+<span class='lineno'>6</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legend</span><span class='p'>.</span><span class='n'>swatchSize</span> <span class='o'>=</span> <span class='n'>CGSizeMake</span><span class='p'>(</span><span class='mf'>10.0</span><span class='p'>,</span> <span class='mf'>10.0</span><span class='p'>);</span><span class='c1'>//border size</span>
+<span class='lineno'>7</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legendAnchor</span> <span class='o'>=</span> <span class='n'>CPTRectAnchorTop</span><span class='p'>;</span>
+<span class='lineno'>8</span>     <span class='n'>_graph</span><span class='p'>.</span><span class='n'>legendDisplacement</span> <span class='o'>=</span> <span class='n'>CGPointMake</span><span class='p'>(</span><span class='mf'>0.0</span><span class='p'>,</span> <span class='o'>-</span><span class='mf'>1.0</span><span class='p'>);</span>
+</code></pre></div>
+<h4 id='xlabel'>x轴使用自定义label</h4>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>x</span><span class='p'>.</span><span class='n'>labelingPolicy</span> <span class='o'>=</span> <span class='n'>CPTAxisLabelingPolicyNone</span><span class='p'>;</span>
+<span class='lineno'>2</span> 	<span class='n'>x</span><span class='p'>.</span><span class='n'>axisLabels</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>self</span> <span class='n'>getMyXaxisLabels</span><span class='p'>];</span>
+<span class='lineno'>3</span> 	<span class='n'>x</span><span class='p'>.</span><span class='n'>majorTickLocations</span> <span class='o'>=</span> <span class='p'>[</span><span class='n'>NSSet</span> <span class='n'>setWithArray</span><span class='o'>:</span><span class='n'>locationLabels</span><span class='p'>];</span>
+</code></pre></div>
+<blockquote>
+<p>在自己生成自定义的label时要注意的是</p>
+</blockquote>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span> 	<span class='n'>newLabel</span><span class='p'>.</span><span class='n'>tickLocation</span> <span class='o'>=</span> <span class='n'>CPTDecimalFromUnsignedInteger</span><span class='p'>(</span><span class='n'>n</span><span class='p'>);</span>
+<span class='lineno'>2</span>     <span class='p'>[</span><span class='n'>locationLabels</span> <span class='n'>addObject</span><span class='o'>:</span><span class='p'>[</span><span class='n'>NSNumber</span> <span class='n'>numberWithInt</span><span class='o'>:</span><span class='p'>(</span><span class='n'>n</span><span class='p'>)]];</span>
+</code></pre></div>
+<blockquote>
+<p>上面这location要对应一致，否则在显示上有偏差。CPTAxisLabel自己有个property ‘location’，而locationLabels 会赋予axis.majorTickLocations, coreplot在渲染时会根据比较两者的location来将label放入相应的位置。</p>
+</blockquote>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>19 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html">BeeFramework入门-BeeUIScrollView</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html">BeeFramework入门-scaffold-II</a></li>
+    
+      <li><span>10 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html">BeeFramework入门-scaffold</a></li>
+    
+      <li><span>03 Aug 2013</span> - <a href="/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html">Ruby环境的若干问题!!</a></li>
+    
+  </ul>
+</div>
+
+
+<div id="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_identifier = "/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html";
+    (function() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = 'http://huskar.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=huskar">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+          </div>
+    </div> <!-- /container -->
+  
+  <a href="http://github.com/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  
+  </body>
+</html>
