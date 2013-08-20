@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Huskar Blog</title>
- <link href="http://blog.example.com/atom.xml" rel="self"/>
- <link href="http://blog.example.com/"/>
- <updated>2013-08-20T14:38:19+08:00</updated>
- <id>http://blog.example.com/</id>
+ <title>Kevin's Blog</title>
+ <link href="http://huskarz.github.com/atom.xml" rel="self"/>
+ <link href="http://huskarz.github.com/"/>
+ <updated>2013-08-20T14:41:55+08:00</updated>
+ <id>http://huskarz.github.com/</id>
  <author>
-   <name>Huskar</name>
+   <name>Kevin</name>
    <email>Huskar@outlook.com</email>
  </author>
 
  
  <entry>
    <title>IOS - UIMenuController</title>
-   <link href="http://blog.example.com/ios/2013/08/20/IOS-UIMenuController.html"/>
+   <link href="http://huskarz.github.com/ios/2013/08/20/IOS-UIMenuController.html"/>
    <updated>2013-08-20T10:55:00+08:00</updated>
-   <id>http://blog.example.com/ios/2013/08/20/IOS-UIMenuController</id>
+   <id>http://huskarz.github.com/ios/2013/08/20/IOS-UIMenuController</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
 &lt;p&gt;让UIMenuController显示在一个自定义的ViewController里&lt;/p&gt;
@@ -61,9 +61,9 @@
  
  <entry>
    <title>BeeFramework入门-BeeUIScrollView</title>
-   <link href="http://blog.example.com/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html"/>
+   <link href="http://huskarz.github.com/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html"/>
    <updated>2013-08-19T10:35:00+08:00</updated>
-   <id>http://blog.example.com/beeframework/tutorial/2013/08/19/BeeFramework入门-BeeUIScrollView</id>
+   <id>http://huskarz.github.com/beeframework/tutorial/2013/08/19/BeeFramework入门-BeeUIScrollView</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
 &lt;p&gt;简单的用一个scroll view显示一个书名列表。&lt;/p&gt;
@@ -222,9 +222,9 @@
  
  <entry>
    <title>CorePlot基础</title>
-   <link href="http://blog.example.com/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html"/>
+   <link href="http://huskarz.github.com/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html"/>
    <updated>2013-08-13T17:36:03+08:00</updated>
-   <id>http://blog.example.com/opensource/2013/08/13/CorePlot基础</id>
+   <id>http://huskarz.github.com/opensource/2013/08/13/CorePlot基础</id>
    <content type="html">&lt;blockquote&gt;
 &lt;p&gt;一些小的基础知识&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -341,9 +341,9 @@
  
  <entry>
    <title>BeeFramework入门-scaffold-II</title>
-   <link href="http://blog.example.com/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html"/>
+   <link href="http://huskarz.github.com/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html"/>
    <updated>2013-08-13T01:36:03+08:00</updated>
-   <id>http://blog.example.com/beeframework/tutorial/2013/08/13/BeeFramework入门-scaffold-II</id>
+   <id>http://huskarz.github.com/beeframework/tutorial/2013/08/13/BeeFramework入门-scaffold-II</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
 &lt;p&gt;书接上回&lt;a href='http://huskarz.github.io/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html'&gt;使用scaffold生成model&amp;amp;controller&lt;/a&gt;.&lt;/p&gt;
@@ -440,9 +440,9 @@
  
  <entry>
    <title>BeeFramework入门-scaffold</title>
-   <link href="http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html"/>
+   <link href="http://huskarz.github.com/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html"/>
    <updated>2013-08-10T00:07:03+08:00</updated>
-   <id>http://blog.example.com/beeframework/tutorial/2013/08/10/BeeFramework入门-scaffold</id>
+   <id>http://huskarz.github.com/beeframework/tutorial/2013/08/10/BeeFramework入门-scaffold</id>
    <content type="html">&lt;h1 id='background'&gt;Background&lt;/h1&gt;
 
 &lt;p&gt;IOS APP需要从某个server取数据，该server返回的是json格式。假设返回的数据如下:&lt;/p&gt;
@@ -523,9 +523,9 @@
  
  <entry>
    <title>Ruby环境的若干问题!!</title>
-   <link href="http://blog.example.com/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html"/>
+   <link href="http://huskarz.github.com/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html"/>
    <updated>2013-08-03T00:38:03+08:00</updated>
-   <id>http://blog.example.com/jekyll/update/2013/08/03/Ruby环境若干问题</id>
+   <id>http://huskarz.github.com/jekyll/update/2013/08/03/Ruby环境若干问题</id>
    <content type="html">&lt;p&gt;本来不需要ruby环境的。为了安装cocoapods，结果引出一堆安装问题。焦头烂额了两天，现在终于搞定了。&lt;/p&gt;
 
 &lt;h2 id='download_specs48gz'&gt;不能download specs.4.8.gz&lt;/h2&gt;
