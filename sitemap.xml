@@ -3,7 +3,7 @@
 
   <!--  Homepage -->
   <url>
-    <loc>http://huskarz.github.com/</loc>
+    <loc>http://huskarz.github.io/</loc>
     <lastmod>2013-08-20</lastmod>
     <changefreq>daily</changefreq>
 		<priority>1.0</priority>
@@ -11,42 +11,42 @@
 
   
   <url>
-    <loc>http://huskarz.github.com/ios/2013/08/20/IOS-UIMenuController.html</loc>
+    <loc>http://huskarz.github.io/ios/2013/08/20/IOS-UIMenuController.html</loc>
     
     <lastmod>2013-08-20</lastmod>
     
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html</loc>
+    <loc>http://huskarz.github.io/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html</loc>
     
     <lastmod>2013-08-19</lastmod>
     
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html</loc>
+    <loc>http://huskarz.github.io/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html</loc>
     
     <lastmod>2013-08-13</lastmod>
     
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html</loc>
+    <loc>http://huskarz.github.io/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html</loc>
     
     <lastmod>2013-08-13</lastmod>
     
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html</loc>
+    <loc>http://huskarz.github.io/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html</loc>
     
     <lastmod>2013-08-10</lastmod>
     
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html</loc>
+    <loc>http://huskarz.github.io/jekyll/update/2013/08/03/Ruby%E7%8E%AF%E5%A2%83%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98.html</loc>
     
     <lastmod>2013-08-03</lastmod>
     
@@ -55,7 +55,7 @@
 
   
   <url>
-    <loc>http://huskarz.github.com/about.html</loc>
+    <loc>http://huskarz.github.io/about.html</loc>
     
     <lastmod>2013-08-20</lastmod>
     
@@ -64,7 +64,7 @@
   </url>
   
   <url>
-    <loc>http://huskarz.github.com/index.html</loc>
+    <loc>http://huskarz.github.io/index.html</loc>
     
     <lastmod>2013-08-20</lastmod>
     
