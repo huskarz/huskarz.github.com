@@ -38,9 +38,10 @@
 <p>这里有个坑爹的地方，如果你的MyPage里有BeeUIButton,那么button点击默认是不会响应的，需要设置:</p>
 <div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>      <span class='n'>_router</span><span class='p'>.</span><span class='n'>view</span><span class='p'>.</span><span class='n'>userInteractionEnabled</span> <span class='o'>=</span> <span class='nb'>YES</span><span class='p'>;</span>
 </code></pre></div>
-<p>这个现象在0.4.0的demo里的lesson4里就有。</p>
-
-<p>纳闷的是BeeUIStack就不用特意去设置这个，也没有深究其不同。</p>
+<p>或者</p>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>     <span class='p'>[</span><span class='n'>_router</span><span class='p'>.</span><span class='n'>view</span> <span class='n'>setTapEnabled</span><span class='o'>:</span><span class='nb'>YES</span><span class='p'>];</span>
+</code></pre></div>
+<p>纳闷的是BeeUIStack默认就可以，也没有深究其不同。</p>
 
 <blockquote>
 <p>题外话</p>
