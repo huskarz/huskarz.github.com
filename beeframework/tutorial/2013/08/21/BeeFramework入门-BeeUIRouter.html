@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BeeFramework入门-BeeUIRouter - Kevin's Blog</title>
+    
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+    <link rel="stylesheet" href="/css/main.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <div class="container">
+          <div class="site">
+               <div class="header">
+                   <h1 class="title"><a href="/">Kevin's Blog</a></h1>
+               </div>
+                <h1>BeeFramework入门-BeeUIRouter</h1>
+                <div class="postdate">Posted on 21 Aug 2013</div>
+
+
+
+<div class="post">
+<p>BeeUIRouter 是BeeFramework里比较重要的一个Component，用来控制页面的跳转非常方便。</p>
+
+<h1 id='id4'>使用方法</h1>
+
+<p>初始化</p>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>      <span class='n'>_router</span> <span class='o'>=</span> <span class='p'>[[</span><span class='n'>BeeUIRouter</span> <span class='n'>alloc</span><span class='p'>]</span><span class='n'>init</span><span class='p'>];</span>
+<span class='lineno'>2</span>      <span class='n'>_router</span><span class='p'>.</span><span class='n'>view</span><span class='p'>.</span><span class='n'>userInteractionEnabled</span> <span class='o'>=</span> <span class='nb'>YES</span><span class='p'>;</span>
+<span class='lineno'>3</span> 		<span class='p'>[</span><span class='n'>_router</span> <span class='n'>map</span><span class='o'>:</span><span class='s'>@&quot;page1&quot;</span> <span class='n'>toClass</span><span class='o'>:</span><span class='p'>[</span><span class='n'>MyPage</span> <span class='n'>class</span><span class='p'>]];</span>
+<span class='lineno'>4</span> 		<span class='p'>[</span><span class='n'>_router</span> <span class='n'>map</span><span class='o'>:</span><span class='s'>@&quot;page2&quot;</span> <span class='n'>toClass</span><span class='o'>:</span><span class='p'>[</span><span class='n'>MyPage</span> <span class='n'>class</span><span class='p'>]];</span>
+<span class='lineno'>5</span>     <span class='p'>[</span><span class='n'>self</span><span class='p'>.</span><span class='n'>view</span> <span class='n'>addSubview</span><span class='o'>:</span><span class='n'>_router</span><span class='p'>.</span><span class='n'>view</span><span class='p'>];</span>
+</code></pre></div>
+<p>打开某一个view</p>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>     <span class='p'>[</span><span class='n'>_router</span> <span class='n'>open</span><span class='o'>:</span><span class='s'>@&quot;page1&quot;</span><span class='p'>];</span>
+</code></pre></div>
+<p>这里有个坑爹的地方，如果你的MyPage里有BeeUIButton,那么button点击默认是不会响应的，需要设置:</p>
+<div class='highlight'><pre><code class='objc'><span class='lineno'>1</span>      <span class='n'>_router</span><span class='p'>.</span><span class='n'>view</span><span class='p'>.</span><span class='n'>userInteractionEnabled</span> <span class='o'>=</span> <span class='nb'>YES</span><span class='p'>;</span>
+</code></pre></div>
+<p>这个现象在0.4.0的demo里的lesson4里就有。</p>
+
+<p>纳闷的是BeeUIStack就不用特意去设置这个，也没有深究其不同。</p>
+
+<blockquote>
+<p>题外话</p>
+</blockquote>
+
+<p>BeeFramework自带example的lesson 4还有个bug，点击退回时，会抛exception。解决办法:删除BeeUIBoard.DELETE_VIEWS下的代码。</p>
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>20 Aug 2013</span> - <a href="/ios/2013/08/20/IOS-UIMenuController.html">IOS - UIMenuController</a></li>
+    
+      <li><span>19 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/19/BeeFramework%E5%85%A5%E9%97%A8-BeeUIScrollView.html">BeeFramework入门-BeeUIScrollView</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/opensource/2013/08/13/CorePlot%E5%9F%BA%E7%A1%80.html">CorePlot基础</a></li>
+    
+      <li><span>13 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/13/BeeFramework%E5%85%A5%E9%97%A8-scaffold-II.html">BeeFramework入门-scaffold-II</a></li>
+    
+      <li><span>10 Aug 2013</span> - <a href="/beeframework/tutorial/2013/08/10/BeeFramework%E5%85%A5%E9%97%A8-scaffold.html">BeeFramework入门-scaffold</a></li>
+    
+  </ul>
+</div>
+
+
+<div id="comments">
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_identifier = "/beeframework/tutorial/2013/08/21/BeeFramework%E5%85%A5%E9%97%A8-BeeUIRouter.html";
+    (function() {
+     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+     dsq.src = 'http://huskar.disqus.com/embed.js';
+     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=huskar">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+          </div>
+    </div> <!-- /container -->
+  
+  <a href="http://github.com/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  
+  </body>
+</html>

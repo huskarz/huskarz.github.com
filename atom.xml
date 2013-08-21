@@ -4,13 +4,46 @@
  <title>Kevin's Blog</title>
  <link href="http://huskarz.github.io/atom.xml" rel="self"/>
  <link href="http://huskarz.github.io/"/>
- <updated>2013-08-20T15:23:25+08:00</updated>
+ <updated>2013-08-21T16:54:00+08:00</updated>
  <id>http://huskarz.github.io/</id>
  <author>
    <name>Kevin</name>
    <email>Huskar@outlook.com</email>
  </author>
 
+ 
+ <entry>
+   <title>BeeFramework入门-BeeUIRouter</title>
+   <link href="http://huskarz.github.io/beeframework/tutorial/2013/08/21/BeeFramework%E5%85%A5%E9%97%A8-BeeUIRouter.html"/>
+   <updated>2013-08-21T16:38:00+08:00</updated>
+   <id>http://huskarz.github.io/beeframework/tutorial/2013/08/21/BeeFramework入门-BeeUIRouter</id>
+   <content type="html">&lt;p&gt;BeeUIRouter 是BeeFramework里比较重要的一个Component，用来控制页面的跳转非常方便。&lt;/p&gt;
+
+&lt;h1 id='id4'&gt;使用方法&lt;/h1&gt;
+
+&lt;p&gt;初始化&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;      &lt;span class='n'&gt;_router&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='n'&gt;BeeUIRouter&lt;/span&gt; &lt;span class='n'&gt;alloc&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt;&lt;span class='n'&gt;init&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;span class='lineno'&gt;2&lt;/span&gt;      &lt;span class='n'&gt;_router&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;userInteractionEnabled&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='lineno'&gt;3&lt;/span&gt; 		&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_router&lt;/span&gt; &lt;span class='n'&gt;map&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;page1&amp;quot;&lt;/span&gt; &lt;span class='n'&gt;toClass&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;MyPage&lt;/span&gt; &lt;span class='n'&gt;class&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;span class='lineno'&gt;4&lt;/span&gt; 		&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_router&lt;/span&gt; &lt;span class='n'&gt;map&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;page2&amp;quot;&lt;/span&gt; &lt;span class='n'&gt;toClass&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;MyPage&lt;/span&gt; &lt;span class='n'&gt;class&lt;/span&gt;&lt;span class='p'&gt;]];&lt;/span&gt;
+&lt;span class='lineno'&gt;5&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;self&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt; &lt;span class='n'&gt;addSubview&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='n'&gt;_router&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;打开某一个view&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_router&lt;/span&gt; &lt;span class='n'&gt;open&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='s'&gt;@&amp;quot;page1&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里有个坑爹的地方，如果你的MyPage里有BeeUIButton,那么button点击默认是不会响应的，需要设置:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;      &lt;span class='n'&gt;_router&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;userInteractionEnabled&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这个现象在0.4.0的demo里的lesson4里就有。&lt;/p&gt;
+
+&lt;p&gt;纳闷的是BeeUIStack就不用特意去设置这个，也没有深究其不同。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;题外话&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;BeeFramework自带example的lesson 4还有个bug，点击退回时，会抛exception。解决办法:删除BeeUIBoard.DELETE_VIEWS下的代码。&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>IOS - UIMenuController</title>
