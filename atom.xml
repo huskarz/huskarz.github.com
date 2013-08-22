@@ -4,7 +4,7 @@
  <title>Kevin's Blog</title>
  <link href="http://huskarz.github.io/atom.xml" rel="self"/>
  <link href="http://huskarz.github.io/"/>
- <updated>2013-08-21T16:54:00+08:00</updated>
+ <updated>2013-08-22T10:24:12+08:00</updated>
  <id>http://huskarz.github.io/</id>
  <author>
    <name>Kevin</name>
@@ -34,9 +34,10 @@
 &lt;p&gt;这里有个坑爹的地方，如果你的MyPage里有BeeUIButton,那么button点击默认是不会响应的，需要设置:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;      &lt;span class='n'&gt;_router&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;userInteractionEnabled&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nb'&gt;YES&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这个现象在0.4.0的demo里的lesson4里就有。&lt;/p&gt;
-
-&lt;p&gt;纳闷的是BeeUIStack就不用特意去设置这个，也没有深究其不同。&lt;/p&gt;
+&lt;p&gt;或者&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='objc'&gt;&lt;span class='lineno'&gt;1&lt;/span&gt;     &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='n'&gt;_router&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;view&lt;/span&gt; &lt;span class='n'&gt;setTapEnabled&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt;&lt;span class='nb'&gt;YES&lt;/span&gt;&lt;span class='p'&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;纳闷的是BeeUIStack默认就可以，也没有深究其不同。&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;题外话&lt;/p&gt;
